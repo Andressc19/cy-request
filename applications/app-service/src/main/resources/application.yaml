@@ -12,3 +12,12 @@ spring:
       path: /h2
   profiles:
     include:
+
+adapters:
+  r2dbc:
+    host: ${DB_HOST}
+    port: ${DB_PORT}
+    database: ${POSTGRES_DB}
+    schema: ${DB_SCHEMA}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
