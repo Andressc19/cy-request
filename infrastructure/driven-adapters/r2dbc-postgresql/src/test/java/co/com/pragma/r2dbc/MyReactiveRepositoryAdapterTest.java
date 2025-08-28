@@ -1,5 +1,7 @@
 package co.com.pragma.r2dbc;
 
+import co.com.pragma.r2dbc.loan.LoanReactiveRepository;
+import co.com.pragma.r2dbc.loan.LoanReactiveRepositoryAdapter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,10 +21,10 @@ class MyReactiveRepositoryAdapterTest {
     // TODO: change four you own tests
 
     @InjectMocks
-    MyReactiveRepositoryAdapter repositoryAdapter;
+    LoanReactiveRepositoryAdapter repositoryAdapter;
 
     @Mock
-    MyReactiveRepository repository;
+    LoanReactiveRepository repository;
 
     @Mock
     ObjectMapper mapper;
