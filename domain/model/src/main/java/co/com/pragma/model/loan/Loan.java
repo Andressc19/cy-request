@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 public class Loan{
 	private Long id;
 	private BigDecimal amount;
+	private String identificationNumber;
 	private String email;
 	private int periodMonths;
 	private LoanStatus status;
