@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Getter
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Loan{
+public class Loan {
 	private Long id;
 	private BigDecimal amount;
 	private String identificationNumber;

@@ -1,23 +1,32 @@
-##Spring Configuration
 server:
   port: 8080
 spring:
   application:
-    name: cy-requests
+    name: "cy-requests"
   devtools:
     add-properties: false
   h2:
     console:
       enabled: true
-      path: /h2
+      path: "/h2"
   profiles:
-    include:
-
+    include: null
 adapters:
   r2dbc:
-    host: ${DB_HOST}
-    port: ${DB_PORT}
-    database: ${POSTGRES_DB}
-    schema: ${DB_SCHEMA}
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
+    host: "${DB_HOST}"
+    port: "${DB_PORT}"
+    database: "${POSTGRES_DB}"
+    schema: "${DB_SCHEMA}"
+    username: "${POSTGRES_USER}"
+    password: "${POSTGRES_PASSWORD}"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus"
+  endpoint:
+    health:
+      probes:
+        enabled: true
+cors:
+  allowed-origins: "http://localhost:4200,http://localhost:8080"
