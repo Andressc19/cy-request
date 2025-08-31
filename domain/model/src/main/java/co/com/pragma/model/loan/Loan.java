@@ -15,7 +15,7 @@ public class Loan {
 	private BigDecimal amount;
 	private String identificationNumber;
 	private String email;
-	private int periodMonths;
+	private Short periodMonths;
 	private LoanStatus status;
 	private LoanType loanType;
 }

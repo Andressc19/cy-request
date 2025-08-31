@@ -12,6 +12,6 @@ import reactor.core.publisher.Mono;
 public class LoanHandler {
     
     public Mono<ServerResponse> listenGETCreateLoan(ServerRequest serverRequest) {
-        return ServerResponse.ok().bodyValue("");
+        return ServerResponse.ok().bodyValue("LoanCreated");
     }
 }
