@@ -22,6 +22,6 @@ public class LoanRouterRest {
         )
     })
     public RouterFunction<ServerResponse> routerFunction(LoanHandler handler) {
-        return route(GET(API_PATH + "/solicitud"), handler::listenGETUseCase);
+        return route(GET(API_PATH + "/solicitud"), handler::listenGETCreateLoan);
     }
 }

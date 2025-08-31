@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
       info = @Info(
-            title = "CY Solicitud",
+            title = "CY Solicitudes",
             version = "1.0.0",
             description = "Microservicio para manejo de solicitudes de prestamos",
             contact = @Contact(name = "Andres Camperos")
