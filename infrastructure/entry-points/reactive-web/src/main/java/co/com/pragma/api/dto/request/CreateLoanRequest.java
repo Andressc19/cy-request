@@ -20,7 +20,7 @@ public record CreateLoanRequest(
 	@Schema(description = "Correo electrónico", example = "johndoe@mail.com")
 	String email,
 	
-	@Schema(description = "Debe ingresar un periodo de meses", example ="12")
+	@Schema(description = "Debe ingresar un periodo en meses", example ="12")
 	Short periodMonths,
 	
 	@Schema(description = "Estado de la solicitud", example = "1")
