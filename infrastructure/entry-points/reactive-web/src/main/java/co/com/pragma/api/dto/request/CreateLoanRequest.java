@@ -24,8 +24,8 @@ public record CreateLoanRequest(
 	Short periodMonths,
 	
 	@Schema(description = "Estado de la solicitud", example = "1")
-	Short status,
+	Short loanStatusId,
 	
 	@Schema(description = "Tipo de prestamo", example = "1")
-	Short loanType
+	Short loanTypeId
 ) {}

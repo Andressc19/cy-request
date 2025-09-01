@@ -1,5 +1,7 @@
 package co.com.pragma.model.loanstatus.gateways;
 
-public interface LoanStatusRepository {
+import reactor.core.publisher.Mono;
 
+public interface LoanStatusRepository {
+	Mono<Boolean> existById(Short id);
 }

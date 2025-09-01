@@ -3,6 +3,7 @@ package co.com.pragma.r2dbc.entity;
 import jakarta.persistence.PrePersist;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.r2dbc.config.EnableR2dbcAuditing;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -33,8 +34,4 @@ public class LoanEntity {
 
 	@Column("fecha_aprobacion")
 	private LocalDateTime approvedAt;
-
-	@Column("fecha_creacion")
-	@PrePersist
-	private LocalDateTime createdAt;
 }

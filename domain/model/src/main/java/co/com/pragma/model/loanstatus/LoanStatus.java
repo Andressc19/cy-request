@@ -8,7 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class LoanStatus {
-	private Long id;
+	private Short id;
 	private String name;
 	private String description;
 }

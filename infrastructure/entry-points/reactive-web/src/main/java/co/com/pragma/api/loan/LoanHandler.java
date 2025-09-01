@@ -1,4 +1,4 @@
-package co.com.pragma.api;
+package co.com.pragma.api.loan;
 
 import co.com.pragma.api.dto.request.CreateLoanRequest;
 import co.com.pragma.api.exceptions.RequestValidator;
@@ -17,12 +17,12 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RequiredArgsConstructor
 public class LoanHandler {
-
-    private final RequestValidator jakartaValidator;
+    
     private final CreateLoanUseCase createLoanUseCase;
+    private final RequestValidator jakartaValidator;
     private final LoanMapper loanMapper;
 
-    public Mono<ServerResponse> listenGETCreateLoan(ServerRequest request) {
+    public Mono<ServerResponse> listenPOSTCreateLoan(ServerRequest request) {
         return request.bodyToMono(CreateLoanRequest.class)
               .flatMap(jakartaValidator::validate)
               .map(loanMapper::toDomain)

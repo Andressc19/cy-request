@@ -1,5 +1,6 @@
-package co.com.pragma.api;
+package co.com.pragma.api.loan;
 
+import co.com.pragma.api.constants.ApiConstants;
 import co.com.pragma.api.dto.request.CreateLoanRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,14 +21,12 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 public class LoanRouterRest {
     
-    private static final String API_PATH = "/api/v1";
-    
     @Bean
     @RouterOperations({
         @RouterOperation(
-            path = API_PATH + "/solicitud",
+            path = ApiConstants.LOAN_PATH,
             beanClass = LoanHandler.class,
-            beanMethod = "listenGETCreateLoan",
+            beanMethod = "listenPOSTCreateLoan",
             method = RequestMethod.POST,
             operation = @Operation(
                 operationId = "createLoan",
@@ -49,6 +48,6 @@ public class LoanRouterRest {
         )
     })
     public RouterFunction<ServerResponse> routerFunction(LoanHandler handler) {
-        return route(POST(API_PATH + "/solicitud"), handler::listenGETCreateLoan);
+        return route(POST(ApiConstants.LOAN_PATH), handler::listenPOSTCreateLoan);
     }
 }
