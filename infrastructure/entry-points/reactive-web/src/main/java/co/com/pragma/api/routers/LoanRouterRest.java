@@ -1,7 +1,8 @@
-package co.com.pragma.api.loan;
+package co.com.pragma.api.routers;
 
 import co.com.pragma.api.constants.ApiConstants;
 import co.com.pragma.api.dto.request.CreateLoanRequest;
+import co.com.pragma.api.handlers.LoanHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

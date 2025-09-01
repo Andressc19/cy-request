@@ -12,12 +12,15 @@ import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface LoanMapper {
-    @Mapping(source="loanStatusId", target = "status", qualifiedByName = "mapStatus")
-    @Mapping(source="loanTypeId", target = "loanType", qualifiedByName = "mapLoanType")
+    
+    @Mapping(source="typeId", target = "type", qualifiedByName = "mapLoanType")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "approvedAt", ignore = true)
     Loan toDomain(CreateLoanRequest request);
     
-    @Mapping(source="loanType.id", target = "loanTypeId")
-    @Mapping(source="status.id", target = "loanStatusId" )
+    @Mapping(source="type.id", target = "typeId")
+    @Mapping(source="status.id", target = "statusId" )
     CreateLoanResponse toDto(Loan loan);
     
     
@@ -26,14 +29,6 @@ public interface LoanMapper {
         if (loanId == null) return null;
         return LoanType.builder()
             .id(loanId)
-            .build();
-    }
-    
-    @Named("mapStatus")
-    default LoanStatus mapStatus(Short statusId) {
-        if (statusId == null) return null;
-        return LoanStatus.builder()
-            .id(statusId)
             .build();
     }
 }

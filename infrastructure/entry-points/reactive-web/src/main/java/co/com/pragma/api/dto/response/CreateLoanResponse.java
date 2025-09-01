@@ -7,6 +7,6 @@ public record CreateLoanResponse(
 	String identificationNumber,
 	String email,
 	Short periodMonths,
-	Short loanStatusId,
-	Short loanTypeId
+	Short statusId,
+	Short typeId
 ){}

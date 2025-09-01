@@ -1,4 +1,4 @@
-package co.com.pragma.api.loan;
+package co.com.pragma.api.handlers;
 
 import co.com.pragma.api.dto.request.CreateLoanRequest;
 import co.com.pragma.api.exceptions.RequestValidator;

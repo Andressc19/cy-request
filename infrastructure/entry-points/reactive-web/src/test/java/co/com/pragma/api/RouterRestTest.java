@@ -1,7 +1,7 @@
 package co.com.pragma.api;
 
-import co.com.pragma.api.loan.LoanHandler;
-import co.com.pragma.api.loan.LoanRouterRest;
+import co.com.pragma.api.handlers.LoanHandler;
+import co.com.pragma.api.routers.LoanRouterRest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;

@@ -11,3 +11,7 @@ dependencies {
     testImplementation 'org.reactivecommons.utils:object-mapper:0.1.0'
 }
 
+// Para utilizar los nombres de la entidad y no los @Columns
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-parameters"
+}

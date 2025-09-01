@@ -14,31 +14,31 @@ import reactor.core.publisher.Mono;
 @Repository
 @Slf4j
 public class LoanReactiveRepositoryAdapter extends ReactiveAdapterOperations
-    <Loan, LoanEntity, Long, LoanReactiveRepository> implements LoanRepository {
-
-    private final TransactionalOperator transactionalOperator;
-    private final LoanEntityMapper loanEntityMapper;
-
-    public LoanReactiveRepositoryAdapter(
-          LoanReactiveRepository repository,
-          ObjectMapper mapper,
-          TransactionalOperator transactionalOperator, LoanEntityMapper loanEntityMapper
-    ) {
-        super(repository, mapper, loanEntityMapper::toDomain);
-        this.transactionalOperator = transactionalOperator;
-        this.loanEntityMapper = loanEntityMapper;
-    }
-
-    @Override
-    public Mono<Loan> saveLoan(Loan loan) {
-        return save(loan)
-              .as(transactionalOperator::transactional)
-              .doOnSuccess(saved -> log.info("Loan saved {}", saved))
-              .doOnError(e -> log.error("Error saving loan request", e));
-    }
-
-    @Override
-    protected LoanEntity toData(Loan user) {
-        return loanEntityMapper.toEntity(user);
-    }
+	<Loan, LoanEntity, Long, LoanReactiveRepository> implements LoanRepository {
+	
+	private final TransactionalOperator transactionalOperator;
+	private final LoanEntityMapper loanEntityMapper;
+	
+	public LoanReactiveRepositoryAdapter(
+		LoanReactiveRepository repository,
+		ObjectMapper mapper,
+		TransactionalOperator transactionalOperator, LoanEntityMapper loanEntityMapper
+	) {
+		super(repository, mapper, loanEntityMapper::toDomain);
+		this.transactionalOperator = transactionalOperator;
+		this.loanEntityMapper = loanEntityMapper;
+	}
+	
+	@Override
+	public Mono<Loan> saveLoan(Loan loan) {
+		return save(loan)
+			.as(transactionalOperator::transactional)
+			.doOnSuccess(saved -> log.info("Loan saved {}", saved))
+			.doOnError(e -> log.error("Error saving loan request", e));
+	}
+	
+	@Override
+	protected LoanEntity toData(Loan user) {
+		return loanEntityMapper.toEntity(user);
+	}
 }
