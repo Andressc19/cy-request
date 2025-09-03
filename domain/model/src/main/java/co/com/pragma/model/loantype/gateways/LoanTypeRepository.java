@@ -1,7 +1,8 @@
 package co.com.pragma.model.loantype.gateways;
 
+import co.com.pragma.model.loantype.LoanType;
 import reactor.core.publisher.Mono;
 
 public interface LoanTypeRepository {
-	Mono<Boolean> existsById(Short id);
+	Mono<LoanType> findById(Short id);
 }
