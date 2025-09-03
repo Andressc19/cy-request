@@ -33,7 +33,7 @@ public class LoanReactiveRepositoryAdapter extends ReactiveAdapterOperations
 	public Mono<Loan> saveLoan(Loan loan) {
 		return save(loan)
 			.as(transactionalOperator::transactional)
-			.doOnSuccess(saved -> log.info("Loan saved {}", saved))
+			.doOnSuccess(saved -> log.info("Loan saved {}", saved.toString()))
 			.doOnError(e -> log.error("Error saving loan request", e));
 	}
 	

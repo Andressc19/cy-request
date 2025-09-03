@@ -21,15 +21,16 @@ public class LoanHandler {
     private final CreateLoanUseCase createLoanUseCase;
     private final RequestValidator jakartaValidator;
     private final LoanMapper loanMapper;
-
+    
     public Mono<ServerResponse> listenPOSTCreateLoan(ServerRequest request) {
         return request.bodyToMono(CreateLoanRequest.class)
-              .flatMap(jakartaValidator::validate)
-              .map(loanMapper::toDomain)
-              .flatMap(createLoanUseCase::execute)
-              .map(loanMapper::toDto)
-              .doOnNext(user -> log.info("Created loan successfully: {}", user))
-              .flatMap(dto -> ServerResponse.status(HttpStatus.CREATED).bodyValue(dto));
-
+            .doOnNext(req -> log.info("Incoming loan creation request: {}", req))
+            .flatMap(jakartaValidator::validate)
+            .map(loanMapper::toDomain)
+            .flatMap(createLoanUseCase::execute)
+            .map(loanMapper::toDto)
+            .doOnSuccess(dto -> log.info("Loan created successfully: {}", dto))
+            .doOnError(error -> log.error("Error creating loan: {}", error.getMessage()))
+            .flatMap(dto -> ServerResponse.status(HttpStatus.CREATED).bodyValue(dto));
     }
 }

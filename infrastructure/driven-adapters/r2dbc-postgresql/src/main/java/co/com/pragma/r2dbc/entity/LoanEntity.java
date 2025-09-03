@@ -33,6 +33,9 @@ public class LoanEntity {
 	@Column("email")
 	private String email;
 	
+	@Column("numero_identificacion")
+	private String identificationNumber;
+	
 	@Column("id_estado")
 	private Long statusId;
 	
