@@ -24,7 +24,7 @@ public class CreateLoanUseCase implements ICreateLoanUseCase {
     private final UserGateway userGateway;
     
     @Override
-    public Mono<Loan> execute(Loan loan) {
+    public Mono<Loan> execute(Loan loan, String token) {
         
         ///  Validate if exists loan type
         Mono<LoanType> loanTypeExists = loanTypeRepository.findById(loan.getType().getId())
@@ -35,7 +35,7 @@ public class CreateLoanUseCase implements ICreateLoanUseCase {
             .switchIfEmpty(Mono.error(new LoanStatusNotExists(LoanStatusConstants.PENDING)));
         
         ///  validate if user exists
-        Mono<Boolean> userExists = userGateway.userExists(loan.getEmail(), loan.getIdentificationNumber())
+        Mono<Boolean> userExists = userGateway.userExists(token)
             .filter(exist -> exist)
             .switchIfEmpty(Mono.error(new UserDoesntExistsException(loan.getEmail(), loan.getIdentificationNumber())));
         
