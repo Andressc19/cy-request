@@ -6,6 +6,7 @@ import co.com.pragma.api.mapper.LoanMapper;
 import co.com.pragma.usecase.createloan.CreateLoanUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -23,11 +24,13 @@ public class LoanHandler {
     private final LoanMapper loanMapper;
     
     public Mono<ServerResponse> listenPOSTCreateLoan(ServerRequest request) {
+        String authHeader = request.headers().firstHeader(HttpHeaders.AUTHORIZATION);
+        
         return request.bodyToMono(CreateLoanRequest.class)
             .doOnNext(req -> log.info("Incoming loan creation request: {}", req))
             .flatMap(jakartaValidator::validate)
             .map(loanMapper::toDomain)
-            .flatMap(createLoanUseCase::execute)
+            .flatMap(req -> createLoanUseCase.execute(req, authHeader))
             .map(loanMapper::toDto)
             .doOnSuccess(dto -> log.info("Loan created successfully: {}", dto))
             .doOnError(error -> log.error("Error creating loan: {}", error.getMessage()))

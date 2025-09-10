@@ -11,8 +11,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.test.StepVerifier;
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static reactor.test.StepVerifier.create;
 
 
 class RestConsumerTest {
@@ -43,9 +48,9 @@ class RestConsumerTest {
             .setResponseCode(HttpStatus.OK.value())
             .setBody("{\"exists\": true}"));
         
-        var response = restConsumer.userExists("test@email.com", "123456");
+        var response = restConsumer.userExists("Bearer some_token");
         
-        StepVerifier.create(response)
+        create(response)
             .expectNext(true)
             .verifyComplete();
     }
@@ -58,10 +63,31 @@ class RestConsumerTest {
             .setResponseCode(HttpStatus.OK.value())
             .setBody("{\"exists\": false}"));
         
-        var response = restConsumer.userExists("notfound@email.com", "0000");
+        var response = restConsumer.userExists("Bearer some_token");
         
-        StepVerifier.create(response)
+        create(response)
             .expectNext(false)
             .verifyComplete();
     }
+    
+    @Test
+    @DisplayName("Should return false when doesn't have role privileges")
+    void shouldReturnFalseWhenDoesNotHaveRolePrivileges() {
+        MockResponse response = new MockResponse()
+            .setResponseCode(401);
+        
+        mockBackEnd.enqueue(response);
+        
+        var result = restConsumer.userExists("invalid_token");
+        
+        create(result)
+            .expectErrorSatisfies(throwable -> {
+				assertInstanceOf(WebClientResponseException.class, throwable, "La excepción debe ser de tipo WebClientResponseException");
+                WebClientResponseException ex = (WebClientResponseException) throwable;
+                assertTrue(ex.getStatusCode().is4xxClientError(), "El código de estado debe ser de cliente (4xx)");
+            })
+            .verify();
+    }
+    
+    
 }
